@@ -45,3 +45,18 @@ insert_into_student = """
 INSERT INTO student ( birthday, id, name, room, sex ) 
 VALUES ( %s, %s, %s, %s, %s )
 """
+
+
+create_index_room = """
+ALTER TABLE `python_student`.`student` 
+ADD INDEX `room_ind` (`room` ASC) VISIBLE;
+"""
+
+create_index_birthday = """
+ALTER TABLE `python_student`.`student` 
+ADD INDEX `birthday_ind` (`room` ASC, `birthday` ASC) VISIBLE;
+"""
+create_index_sex = """
+ALTER TABLE `python_student`.`student` 
+ADD INDEX `sex_ind` (`room` ASC, `sex` ASC) VISIBLE;
+"""

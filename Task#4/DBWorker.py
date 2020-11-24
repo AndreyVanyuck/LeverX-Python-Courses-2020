@@ -14,7 +14,6 @@ class DBWorker():
                 passwd=user_password,
                 database=database
             )
-            print("Connection to MySQL DB successful")
         except Error as e:
             print(f"The error '{e}' occurred")
 
@@ -28,6 +27,15 @@ class DBWorker():
             cursor.execute(query)
             result = cursor.fetchall()
             return result
+        except Error as e:
+            print(f"The error '{e}' occurred")
+
+
+    def create_index(self, connection, query):
+        cursor = connection.cursor()
+        try:
+            cursor.execute(query)
+            connection.commit()
         except Error as e:
             print(f"The error '{e}' occurred")
 
