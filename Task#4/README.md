@@ -45,7 +45,7 @@ ADD INDEX `birthday_ind` (`room` ASC, `birthday` ASC) VISIBLE;
 Был выбран индекс, созданный в запросе №1. Но после добавления индекса:
 ```html
 ALTER TABLE `python_student`.`student` 
-ADD INDEX `birthday_ind` (`room` ASC, `sex` ASC) VISIBLE;
+ADD INDEX `sex_ind` (`room` ASC, `sex` ASC) VISIBLE;
 ```
 ![](https://sun9-2.userapi.com/impf/seIWVdnEtN26QeiTqxAe8DuvFHeU2t2eIxI0dg/VgWPUqHq7XQ.jpg?size=1115x72&quality=96&proxy=1&sign=07cb9cccbf0e77fcbc45a7cd3073f5c7)
 
