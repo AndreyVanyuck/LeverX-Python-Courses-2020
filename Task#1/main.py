@@ -4,14 +4,16 @@ from file_writer import FileWriter
 from models import StudentRoom, Student, Room
 
 
-parser = argparse.ArgumentParser()
-parser.add_argument("-s", "--students_path",required=True, type=str, help="Path to students.json")
-parser.add_argument("-r", "--rooms_path",required=True, type=str, help="Path to rooms.json")
-parser.add_argument("-f", "--format", choices=["json", "xml"], type=str, help="Format", default="json")
-args = parser.parse_args()
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-s", "--students_path",required=True, type=str, help="Path to students.json")
+    parser.add_argument("-r", "--rooms_path",required=True, type=str, help="Path to rooms.json")
+    parser.add_argument("-f", "--format", choices=["json", "xml"], type=str, help="Format", default="json")
+    return parser.parse_args()
 
 
 def main():
+    args = parse_args()
     rooms = FileReader(args.rooms_path).read()
     students = FileReader(args.students_path).read()
     studentRooms = []

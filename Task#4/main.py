@@ -7,19 +7,22 @@ from queries import (select_different_sexes_rooms, select_number_of_students_in_
                     create_index_room, create_index_birthday, create_index_sex)
 
 
-HOST_NAME = "localhost"
-USER_NAME = "root"
-USER_PASSWORD = "user"
-DATABASE = "python_student"
-
-parser = argparse.ArgumentParser()
-parser.add_argument("-s", "--students_path",required=True, type=str, help="Path to students.json")
-parser.add_argument("-r", "--rooms_path",required=True, type=str, help="Path to rooms.json")
-parser.add_argument("-f", "--format", choices=["json", "xml"], type=str, help="Format", default="json")
-args = parser.parse_args()
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-s", "--students_path",required=True, type=str, help="Path to students.json")
+    parser.add_argument("-r", "--rooms_path",required=True, type=str, help="Path to rooms.json")
+    parser.add_argument("-f", "--format", choices=["json", "xml"], type=str, help="Format", default="json")
+    return parser.parse_args()
 
 
 def main():
+    HOST_NAME = "localhost"
+    USER_NAME = "root"
+    USER_PASSWORD = "user"
+    DATABASE = "python_student"
+
+    args = parse_args()
+    
     dBWorker = DBWorker()
 
     connection = dBWorker.create_connection(HOST_NAME, USER_NAME, USER_PASSWORD, DATABASE)
