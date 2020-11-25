@@ -1,6 +1,6 @@
 import argparse
 from file_reader import FileReader
-from file_writer import FileWriter
+from file_writer import Writer, JSONWriter, XMLWriter
 from models import StudentRoom, Student, Room
 
 
@@ -14,7 +14,7 @@ def parse_args():
 
 def main():
     args = parse_args()
-    
+
     try:
         rooms = FileReader(args.rooms_path).read()
         students = FileReader(args.students_path).read()
@@ -22,16 +22,15 @@ def main():
         print(e)
         return
 
-    studentRooms = []
+    student_rooms = []
     for room in rooms:
-        studentRooms.append(StudentRoom(Room(room['id'], room['name'])))
+        student_rooms.append(StudentRoom(Room(room['id'], room['name'])))
     for student in students:
-        studentRooms[student['room']].students.append(Student(student['id'], student['name']))
+        student_rooms[student['room']].students.append(Student(student['id'], student['name']))
     
-    if args.format == "json":
-        FileWriter.write_as_json(studentRooms)
-    else:
-        FileWriter.write_as_xml(studentRooms)
+    
+    formats = {'json': JSONWriter(), 'xml': XMLWriter()}
+    formats[args.format].write(student_rooms)
 
 if __name__ == "__main__":
     main()

@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
 @dataclass
@@ -16,4 +16,4 @@ class Student:
 @dataclass
 class StudentRoom():
     room : Room
-    students : list
+    students : list = field(default_factory=list)
