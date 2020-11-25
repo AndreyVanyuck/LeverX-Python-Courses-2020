@@ -41,8 +41,12 @@ class DBWorker():
 
 
     def insert_into(self, connection, file_name_rooms, file_name_students):
-        json_rooms = FileReader(file_name_rooms).read()
-        json_students = FileReader(file_name_students).read()
+        try:
+            json_rooms = FileReader(file_name_rooms).read()
+            json_students = FileReader(file_name_students).read()
+        except FileNotFoundError as e:
+            print(e)
+
         val_students = [(student['birthday'], student['id'], student['name'], student['room'], student['sex']) for student in json_students]
         val_rooms = [(room['id'], room['name']) for room in json_rooms]
         cursor = connection.cursor()
