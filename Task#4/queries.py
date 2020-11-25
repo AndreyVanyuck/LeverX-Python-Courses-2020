@@ -7,27 +7,27 @@ GROUP BY room.id
 
 
 select_top_five_small_avg_age_rooms = """
-SELECT room.name
-FROM room
+SELECT room.name, CAST(AVG(YEAR(CURRENT_DATE) - YEAR(birthday)) as double)  as avg_age 
+FROM room 
 INNER JOIN student ON room.id = student.room
 GROUP BY room.id
-ORDER BY AVG(YEAR(CURRENT_DATE) - YEAR(birthday))
+ORDER BY avg_age
 LIMIT 5
 """
 
 
 select_top_five_big_diff_age_rooms = """
-SELECT room.name
+SELECT room.name, MAX(YEAR(birthday)) - MIN(YEAR(birthday)) as diff
 FROM room
 INNER JOIN student ON room.id = student.room
 GROUP BY room.id
-ORDER BY  MAX(YEAR(birthday)) - MIN(YEAR(birthday)) DESC
+ORDER BY diff DESC
 LIMIT 5
 """
 
 
 select_different_sexes_rooms = """
-SELECT room.name
+SELECT room.name, room.id
 FROM room
 INNER JOIN student ON room.id = student.room
 GROUP BY room.id

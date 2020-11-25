@@ -1,6 +1,6 @@
 import argparse
 from file_reader import FileReader
-from file_writer import FileWriter 
+from file_writer import XMLWriter, JSONWriter 
 from dB_worker import DBWorker
 from queries import (select_different_sexes_rooms, select_number_of_students_in_room,
                     select_top_five_big_diff_age_rooms, select_top_five_small_avg_age_rooms,
@@ -38,16 +38,11 @@ def main():
     top_five_big_diff_age_rooms = dBWorker.execute_read_query(connection, select_top_five_big_diff_age_rooms)
     different_sexes_rooms = dBWorker.execute_read_query(connection, select_different_sexes_rooms)
     
-    if args.format == "json":
-        FileWriter().write_as_json(number_of_students_in_room, "query_1.json")
-        FileWriter().write_as_json(top_five_small_avg_age_rooms, "query_2.json")
-        FileWriter().write_as_json(top_five_big_diff_age_rooms, "query_3.json")
-        FileWriter().write_as_json(different_sexes_rooms, "query_4.json")
-    else:
-        FileWriter().write_as_xml(number_of_students_in_room, "query_1.xml", is_two_argument=True)
-        FileWriter().write_as_xml(top_five_small_avg_age_rooms, "query_2.xml")
-        FileWriter().write_as_xml(top_five_big_diff_age_rooms, "query_3.xml")
-        FileWriter().write_as_xml(different_sexes_rooms, "query_4.xml")
+    formats = {'json': JSONWriter(), 'xml': XMLWriter()}
+    formats[args.format].write(number_of_students_in_room, f"query_1.{args.format}")
+    formats[args.format].write(top_five_small_avg_age_rooms, f"query_2.{args.format}")
+    formats[args.format].write(top_five_big_diff_age_rooms, f"query_3.{args.format}")
+    formats[args.format].write(different_sexes_rooms, f"query_4.{args.format}")
 
 if __name__ == "__main__":
     main()
