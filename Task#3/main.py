@@ -1,29 +1,18 @@
-from threading import Thread, Lock
+from multiprocessing import Pool
 
 
-lock = Lock()
-a = 0
-
-
-def function(arg, thread_number):
-    global a
-    print(f"Thread #{thread_number}: starting")
+def function(arg):
+    a = 0
     for _ in range(arg):
-        lock.acquire()
         a += 1
-        lock.release()
-    print(f"Thread #{thread_number}: finishing")
+    return a
 
 
 def main():
-    threads = []
-    for val in range(5):
-        thread = Thread(target=function, args=(1000000, val,))
-        thread.start()
-        threads.append(thread)
-
-
-    [t.join() for t in threads]
-    print("----------------------", a)
+    args = [1000000, 1000000, 1000000, 1000000, 1000000]
+    pool = Pool(processes=5)
+    result = pool.map(function, args)
+    print("----------------------", sum(result)) 
+ 
 
 main()
