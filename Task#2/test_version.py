@@ -1,5 +1,5 @@
 import unittest
-from Version import Version
+from version import Version
 
 class TestVersion(unittest.TestCase):
     def setUp(self):

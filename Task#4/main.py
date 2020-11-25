@@ -1,8 +1,8 @@
 import argparse
-from FileReader import FileReader
-from FileWriter import FileWriter 
-from DBWorker import DBWorker
-from Queries import (select_different_sexes_rooms, select_number_of_students_in_room,
+from file_reader import FileReader
+from file_writer import FileWriter 
+from dB_worker import DBWorker
+from queries import (select_different_sexes_rooms, select_number_of_students_in_room,
                     select_top_five_big_diff_age_rooms, select_top_five_small_avg_age_rooms,
                     create_index_room, create_index_birthday, create_index_sex)
 
@@ -21,7 +21,7 @@ args = parser.parse_args()
 
 def main():
     dBWorker = DBWorker()
-    
+
     connection = dBWorker.create_connection(HOST_NAME, USER_NAME, USER_PASSWORD, DATABASE)
     
     dBWorker.insert_into(connection, args.rooms_path, args.students_path) 

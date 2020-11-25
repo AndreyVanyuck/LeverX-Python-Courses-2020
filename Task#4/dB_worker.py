@@ -1,7 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
-from FileReader import FileReader
-from Queries import insert_into_room, insert_into_student
+from file_reader import FileReader
+from queries import insert_into_room, insert_into_student
 
 
 class DBWorker():

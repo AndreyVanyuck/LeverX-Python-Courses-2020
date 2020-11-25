@@ -1,5 +1,5 @@
 from functools import total_ordering
-from Parser import Parser
+from my_parser import Parser
 
 
 @total_ordering

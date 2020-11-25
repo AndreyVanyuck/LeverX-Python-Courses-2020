@@ -1,5 +1,5 @@
 import json
-from Models import StudentRoom
+from models import StudentRoom
 
 
 class CustomEncoder(json.JSONEncoder):

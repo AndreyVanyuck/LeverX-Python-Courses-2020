@@ -1,6 +1,6 @@
 import json
 import xml.etree.ElementTree as ET
-from CustomEncoder import CustomEncoder
+from custom_encoder import CustomEncoder
 
 
 class FileWriter:

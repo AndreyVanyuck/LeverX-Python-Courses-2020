@@ -1,7 +1,7 @@
 import argparse
-from FileReader import FileReader
-from FileWriter import FileWriter
-from Models import StudentRoom, Student, Room
+from file_reader import FileReader
+from file_writer import FileWriter
+from models import StudentRoom, Student, Room
 
 
 parser = argparse.ArgumentParser()
