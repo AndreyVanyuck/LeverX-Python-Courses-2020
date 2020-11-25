@@ -14,8 +14,14 @@ def parse_args():
 
 def main():
     args = parse_args()
-    rooms = FileReader(args.rooms_path).read()
-    students = FileReader(args.students_path).read()
+    
+    try:
+        rooms = FileReader(args.rooms_path).read()
+        students = FileReader(args.students_path).read()
+    except FileNotFoundError as e:
+        print(e)
+        return
+
     studentRooms = []
     for room in rooms:
         studentRooms.append(StudentRoom(Room(room['id'], room['name'])))
