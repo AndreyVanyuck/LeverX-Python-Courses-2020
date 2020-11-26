@@ -7,19 +7,20 @@ class A:
     val : int
 
 
-def function(arg):
-    for _ in range(arg[0]):
-        arg[1].acquire()
-        arg[2].val += 1
-        arg[1].release()
+def function(arg, lock, a):
+    for _ in range(arg):
+        lock.acquire()
+        a.val += 1
+        lock.release()
 
 
 def main():
     lock = Lock()
     a = A(0)
-    args = [ [1000000, lock, a] ] * 5
+    arg = 1000000
     with ThreadPoolExecutor() as executor:
-        executor.map(function, args)
+        for _ in range(5):
+            executor.submit(function, arg, lock, a)
 
     print("----------------------", a.val)
 
