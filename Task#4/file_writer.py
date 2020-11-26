@@ -14,7 +14,7 @@ class JSONWriter(Writer):
     
 
 class XMLWriter(Writer):
-    def write(self, data, file_name, is_two_argument=False):
+    def write(self, data, file_name):
         with open(file_name, "w") as write_file:
             root = ET.Element("root")
             for val in data:
