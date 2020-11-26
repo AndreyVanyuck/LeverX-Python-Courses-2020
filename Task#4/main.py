@@ -23,20 +23,28 @@ def main():
 
     args = parse_args()
     
-    dBWorker = DBWorker()
+    try:
+        json_rooms = FileReader(args.rooms_path).read()
+        json_students = FileReader(args.students_path).read()
+    except FileNotFoundError as e:
+        print(e)
+        return
 
-    connection = dBWorker.create_connection(HOST_NAME, USER_NAME, USER_PASSWORD, DATABASE)
-    
-    dBWorker.insert_into(connection, args.rooms_path, args.students_path) 
-    
-    dBWorker.create_index(connection, create_index_room)
-    dBWorker.create_index(connection, create_index_sex)
-    dBWorker.create_index(connection, create_index_birthday)
 
-    number_of_students_in_room = dBWorker.execute_read_query(connection, select_number_of_students_in_room)
-    top_five_small_avg_age_rooms = dBWorker.execute_read_query(connection, select_top_five_small_avg_age_rooms)
-    top_five_big_diff_age_rooms = dBWorker.execute_read_query(connection, select_top_five_big_diff_age_rooms)
-    different_sexes_rooms = dBWorker.execute_read_query(connection, select_different_sexes_rooms)
+    dB_worker = DBWorker()
+
+    connection = dB_worker.create_connection(HOST_NAME, USER_NAME, USER_PASSWORD, DATABASE)
+    
+    dB_worker.insert_into(connection, json_rooms, json_students) 
+    
+    dB_worker.create_index(connection, create_index_room)
+    dB_worker.create_index(connection, create_index_sex)
+    dB_worker.create_index(connection, create_index_birthday)
+
+    number_of_students_in_room = dB_worker.execute_read_query(connection, select_number_of_students_in_room)
+    top_five_small_avg_age_rooms = dB_worker.execute_read_query(connection, select_top_five_small_avg_age_rooms)
+    top_five_big_diff_age_rooms = dB_worker.execute_read_query(connection, select_top_five_big_diff_age_rooms)
+    different_sexes_rooms = dB_worker.execute_read_query(connection, select_different_sexes_rooms)
     
     formats = {'json': JSONWriter(), 'xml': XMLWriter()}
     formats[args.format].write(number_of_students_in_room, f"query_1.{args.format}")
