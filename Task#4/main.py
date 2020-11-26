@@ -9,18 +9,17 @@ from queries import (select_different_sexes_rooms, select_number_of_students_in_
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-s", "--students_path",required=True, type=str, help="Path to students.json")
-    parser.add_argument("-r", "--rooms_path",required=True, type=str, help="Path to rooms.json")
+    parser.add_argument("-sp", "--students_path",required=True, type=str, help="Path to students.json")
+    parser.add_argument("-rp", "--rooms_path",required=True, type=str, help="Path to rooms.json")
     parser.add_argument("-f", "--format", choices=["json", "xml"], type=str, help="Format", default="json")
+    parser.add_argument("-h", "--host_name", type=str, help="Host name", default="localhost")
+    parser.add_argument("-u", "--user_name", type=str, help="User name")
+    parser.add_argument("-p", "--user_password", type=str, help="User password")
+    parser.add_argument("-d", "--database", type=str, help="Database name")
     return parser.parse_args()
 
 
 def main():
-    HOST_NAME = "localhost"
-    USER_NAME = "root"
-    USER_PASSWORD = "user"
-    DATABASE = "python_student"
-
     args = parse_args()
     
     try:
@@ -33,7 +32,7 @@ def main():
 
     dB_worker = DBWorker()
 
-    connection = dB_worker.create_connection(HOST_NAME, USER_NAME, USER_PASSWORD, DATABASE)
+    connection = dB_worker.create_connection(args.host_name, args.user_name, args.user_password, args.database)
     
     dB_worker.insert_into(connection, json_rooms, json_students) 
     
