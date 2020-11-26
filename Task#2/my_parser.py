@@ -10,9 +10,11 @@ class Parser:
         version_without_metadata = vers.split('+')
         vers = version_without_metadata[0].split('.', maxsplit=2)    
         
-        split_version[0] = int(vers[0]) 
-        split_version[1] = int(vers[1])
-        
+        split_version[0] = int(vers[0])
+        try:
+            split_version[1] = int(vers[1])
+        except IndexError:
+            split_version[1] = 0
         try:
             split_version[4] = vers[2].split("-", maxsplit=1)[1]
         except IndexError:
