@@ -9,13 +9,13 @@ from queries import (select_different_sexes_rooms, select_number_of_students_in_
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-s", "--students_path",required=True, type=str, help="Path to students.json")
-    parser.add_argument("-r", "--rooms_path",required=True, type=str, help="Path to rooms.json")
+    parser.add_argument("-sp", "--students_path",required=True, type=str, help="Path to students.json")
+    parser.add_argument("-rp", "--rooms_path",required=True, type=str, help="Path to rooms.json")
     parser.add_argument("-f", "--format", choices=["json", "xml"], type=str, help="Format", default="json")
-    parser.add_argument("-h", "--host_name", type=str, help="Host name", default="localhost")
-    parser.add_argument("-u", "--user_name", type=str, help="User name")
-    parser.add_argument("-p", "--user_password", type=str, help="User password")
-    parser.add_argument("-d", "--database", type=str, help="Database name")
+    parser.add_argument("-hn", "--host_name", type=str, help="Host name", default="localhost")
+    parser.add_argument("-un", "--user_name", type=str, help="User name")
+    parser.add_argument("-up", "--user_password", type=str, help="User password")
+    parser.add_argument("-db", "--database", type=str, help="Database name")
     return parser.parse_args()
 
 
