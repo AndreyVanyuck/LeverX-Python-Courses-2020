@@ -10,8 +10,7 @@ class Version:
 
     def __eq__(self, other):
         return self.split_version == other.split_version
-
-            
+    
 
     def __lt__(self, other):
         for i, j in zip(self.split_version, other.split_version):
