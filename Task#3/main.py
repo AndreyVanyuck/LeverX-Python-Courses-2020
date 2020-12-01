@@ -2,9 +2,10 @@ from threading import Lock
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 
+
 @dataclass
 class A:
-    val : int
+    val: int
 
 
 def function(arg, lock, a):

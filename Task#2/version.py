@@ -7,10 +7,8 @@ class Version:
     def __init__(self, version):
         self.split_version = Parser().parse(version)
 
-
     def __eq__(self, other):
         return self.split_version == other.split_version
-    
 
     def __lt__(self, other):
         for i, j in zip(self.split_version, other.split_version):
@@ -19,5 +17,5 @@ class Version:
             if i < j:
                 return True
             else:
-                return False 
-        return False   
+                return False
+        return False
