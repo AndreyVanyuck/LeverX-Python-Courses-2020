@@ -1,5 +1,4 @@
-import mysql.connector
-from mysql.connector import Error
+from mysql.connector import Error, connect
 from file_reader import FileReader
 from queries import insert_into_room, insert_into_student
 
@@ -8,7 +7,7 @@ class DBWorker():
     def create_connection(self, host_name, user_name, user_password, database):
         connection = None
         try:
-            connection = mysql.connector.connect(
+            connection = connect(
                 host=host_name,
                 user=user_name,
                 passwd=user_password,
