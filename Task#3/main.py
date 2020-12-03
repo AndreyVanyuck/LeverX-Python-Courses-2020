@@ -1,29 +1,31 @@
 from threading import Lock
 from concurrent.futures import ThreadPoolExecutor
-from dataclasses import dataclass
 
 
-@dataclass
-class A:
-    val: int
+class ThreadSafeCounter:
+    def __init__(self):
+        self._value = 0
+        self._lock = Lock()
+    
 
+    def locked_update(self, number_of_increments):
+        for _ in range(number_of_increments):
+            with self._lock:
+                self._value += 1
+    
 
-def function(arg, lock, a):
-    for _ in range(arg):
-        lock.acquire()
-        a.val += 1
-        lock.release()
+    def __str__(self):
+        return str(self._value)
 
 
 def main():
-    lock = Lock()
-    a = A(0)
-    arg = 1000000
+    counter = ThreadSafeCounter()
+    number_of_increments = 1000000
     with ThreadPoolExecutor() as executor:
         for _ in range(5):
-            executor.submit(function, arg, lock, a)
+            executor.submit(counter.locked_update, number_of_increments)
 
-    print("----------------------", a.val)
+    print("----------------------", counter)
 
 
 main()
